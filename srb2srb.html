@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Srb2Срб</title>
+		<meta charset="utf-8" />
+		<script type="text/javascript">
+
+			var srb2srb = function(doc) {
+
+				this.doc = doc;
+
+				this.num = 0;
+
+				this.cyr = ['џ', 'љ', 'њ','Џ', 'Џ', 'Љ', 'Љ', 'Њ', 'Њ', 'а', 'б', 'в', 'г', 'д', 'ђ', 'е', 'ж', 'з', 'и', 'ј', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'ћ', 'у', 'ф', 'х', 'ц', 'ч', 'ш',
+					 'А', 'Б', 'В', 'Г', 'Д', 'Ђ', 'Е', 'Ж', 'З', 'И', 'Ј', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'Ћ', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш'];
+				this.lat = ['dž', 'lj', 'nj','Dž', 'DŽ', 'Lj', 'LJ', 'Nj', 'NJ', 'a', 'b', 'v', 'g', 'd', 'đ', 'e', 'ž', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'ć', 'u', 'f', 'h', 'c', 'č', 'š',
+					 'A', 'B', 'V', 'G', 'D', 'Đ', 'E', 'Ž', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'Ć', 'U', 'F', 'H', 'C', 'Č', 'Š'];
+
+				this.entities = ['&#34;', '&quot;', '&#39;', '&apos;', '&#38;', '&amp;', '&#60;', '&lt;', '&#62;', '&gt;', '&#160;', '&nbsp;', '&#161;', '&iexcl;', '&#162;', '&cent;', '&#163;', '&pound;',
+					'&#164;', '&curren;', '&#165;', '&yen;', '&#166;', '&brvbar;', '&#167;', '&sect;', '&#168;', '&uml;', '&#169;', '&copy;', '&#170;', '&ordf;', '&#171;', '&laquo;', '&#172;', '&not;', '&#173;', '&shy;',
+					'&#174;', '&reg;', '&#175;', '&macr;', '&#176;', '&deg;', '&#177;', '&plusmn;', '&#178;', '&sup2;', '&#179;', '&sup3;', '&#180;', '&acute;', '&#181;', '&micro;', '&#182;', '&para;', '&#183;', '&middot;',
+					'&#184;', '&cedil;', '&#185;', '&sup1;', '&#186;', '&ordm;', '&#187;', '&raquo;', '&#188;', '&frac14;', '&#189;', '&frac12;', '&#190;', '&frac34;', '&#191;', '&iquest;', '&#215;', '&times;', '&#247;', '&divide;',
+					'&#216;', '&Oslash;', '&#248;', '&oslash;', '&#8704;', '&forall;', '&#8706;', '&part;', '&#8707;', '&exists;', '&#8709;', '&empty;', '&#8711;', '&nabla;', '&#8712;', '&isin;', '&#8713;', '&notin;', '&#8715;', '&ni;',
+					'&#8719;', '&prod;', '&#8721;', '&sum;', '&#8722;', '&minus;', '&#8727;', '&lowast;', '&#8730;', '&radic;', '&#8733;', '&prop;', '&#8734;', '&infin;', '&#8736;', '&ang;', '&#8743;', '&and;', '&#8744;', '&or;',
+					'&#8745;', '&cap;', '&#8746;', '&cup;', '&#8747;', '&int;', '&#8756;', '&there4;', '&#8764;', '&sim;', '&#8773;', '&cong;', '&#8776;', '&asymp;', '&#8800;', '&ne;', '&#8801;', '&equiv;', '&#8804;', '&le;',
+					'&#8805;', '&ge;', '&#8834;', '&sub;', '&#8835;', '&sup;', '&#8836;', '&nsub;', '&#8838;', '&sube;', '&#8839;', '&supe;', '&#8853;', '&oplus;', '&#8855;', '&otimes;', '&#8869;', '&perp;', '&#8901;', '&sdot;',
+					'&#913;', '&Alpha;', '&#914;', '&Beta;', '&#915;', '&Gamma;', '&#916;', '&Delta;', '&#917;', '&Epsilon;', '&#918;', '&Zeta;', '&#919;', '&Eta;', '&#920;', '&Theta;', '&#921;', '&Iota;', '&#922;', '&Kappa;',
+					'&#923;', '&Lambda;', '&#924;', '&Mu;', '&#925;', '&Nu;', '&#926;', '&Xi;', '&#927;', '&Omicron;', '&#928;', '&Pi;', '&#929;', '&Rho;', '&#931;', '&Sigma;', '&#932;', '&Tau;', '&#933;', '&Upsilon;', '&#934;', '&Phi;',
+					'&#935;', '&Chi;', '&#936;', '&Psi;', '&#937;', '&Omega;', '&#945;', '&alpha;', '&#946;', '&beta;', '&#947;', '&gamma;', '&#948;', '&delta;', '&#949;', '&epsilon;', '&#950;', '&zeta;', '&#951;', '&eta;', '&#952;', '&theta;',
+					'&#953;', '&iota;', '&#954;', '&kappa;', '&#955;', '&lambda;', '&#956;', '&mu;', '&#957;', '&nu;', '&#958;', '&xi;', '&#959;', '&omicron;', '&#960;', '&pi;', '&#961;', '&rho;', '&#962;', '&sigmaf;', '&#963;', '&sigma;',
+					'&#964;', '&tau;', '&#965;', '&upsilon;', '&#966;', '&phi;', '&#967;', '&chi;', '&#968;', '&psi;', '&#969;', '&omega;', '&#977;', '&thetasym;', '&#978;', '&upsih;', '&#982;', '&piv;', '&#338;', '&OElig;', '&#339;', '&oelig;',
+					'&#352;', '&Scaron;', '&#353;', '&scaron;', '&#376;', '&Yuml;', '&#402;', '&fnof;', '&#710;', '&circ;', '&#732;', '&tilde;', '&#8194;', '&ensp;', '&#8195;', '&emsp;', '&#8201;', '&thinsp;', '&#8204;', '&zwnj;', '&#8205;', '&zwj;',
+					'&#8206;', '&lrm;', '&#8207;', '&rlm;', '&#8211;', '&ndash;', '&#8212;', '&mdash;', '&#8216;', '&lsquo;', '&#8217;', '&rsquo;', '&#8218;', '&sbquo;', '&#8220;', '&ldquo;', '&#8221;', '&rdquo;', '&#8222;', '&bdquo;', '&#8224;', '&dagger;',
+					'&#8225;', '&Dagger;', '&#8226;', '&bull;', '&#8230;', '&hellip;', '&#8240;', '&permil;', '&#8242;', '&prime;', '&#8243;', '&Prime;', '&#8249;', '&lsaquo;', '&#8250;', '&rsaquo;', '&#8254;', '&oline;', '&#8364;', '&euro;', '&#8482;', '&trade;',
+					'&#8592;', '&larr;', '&#8593;', '&uarr;', '&#8594;', '&rarr;', '&#8595;', '&darr;', '&#8596;', '&harr;', '&#8629;', '&crarr;', '&#8968;', '&lceil;', '&#8969;', '&rceil;', '&#8970;', '&lfloor;', '&#8971;', '&rfloor;', '&#9674;', '&loz;',
+					'&#9824;', '&spades;', '&#9827;', '&clubs;', '&#9829;', '&hearts;', '&#9830;', '&diams;'];
+
+				this.specialWord = ['konju[^avjrshš][a-z]*', 3, 'injek[a-z]*', 2, 'nadživ[a-z]*', 3, 'tanjug[a-z]*', 3, 'panjeliniz[a-z]*', 3, 'injunkt[a-z]*', 2,
+					'nadžet[a-z]*', 3, 'nadžnj[a-z]*', 3, 'nadžanj[a-z]*', 3, 'nadždrel[a-z]*', 3, 'nadžup[a-z]*', 3, 'odžal[^j][a-z]*', 2,
+					'odžaljen', 2, 'podžupan[a-z]*', 3];
+			}
+
+			srb2srb.prototype.encodeScriptTag = function () {
+
+				return this.encode(new RegExp('(<script[^>]*>[^]*?<\/script>)', 'g'));
+			}
+
+			srb2srb.prototype.encodeStyleTag = function () {
+
+				return this.encode(new RegExp('(<style[^>]*>[^]*?<\/style>)', 'g'));
+			}
+
+			srb2srb.prototype.encodeInputSubmitTag=function() {
+
+				var res=[];
+
+				var tag=['(<input[^>]*type="submit"[^>]*>)','(<input[^>]*type="button"[^>]*>)'];
+
+				for(var i=0;i<tag.length;i++) {
+
+					res=res.concat(this.encode(new RegExp(tag[i],'g')));
+				}
+
+				return res;
+			}
+
+			srb2srb.prototype.encodeAllTag=function() {
+
+				return this.encode(new RegExp('(<[^>]*>)','g'));
+			}
+
+			srb2srb.prototype.encodeHtmlEntities=function() {
+
+				var res=[];
+
+				for(var i=0;i<this.entities.length;i++) {
+
+					res=res.concat(this.encode(new RegExp(this.entities[i],'g')));
+				}
+
+				return res;
+			}
+
+			srb2srb.prototype.encodeExemption=function() {
+
+				return this.encode(new RegExp('({#}[^]*?{/#})','g'));
+			}
+
+			srb2srb.prototype.clearExemptionTag=function() {
+
+				this.doc=this.doc.replace(new RegExp('{#}|{/#}','g'),'');
+			}
+
+			srb2srb.prototype.encodeSpecialWord=function() {
+
+				var self=this;
+
+				for(var i=0;i<self.specialWord.length;i+=2) {
+
+					this.doc=this.doc.replace(new RegExp(self.specialWord[i],'gi'),function (m) {
+
+						return m.substr(0,self.specialWord[i+1])+'#qq#'+m.substr(self.specialWord[i+1])	;
+					});
+				}
+			}
+
+			srb2srb.prototype.encode=function (pattern) {
+
+				var res=[];
+
+				var self=this;
+
+				this.doc=this.doc.replace(pattern, function (m) {
+
+					self.num++;
+
+					res.push({k:'#'+self.num+'#',v:m});
+
+					return '#'+self.num+'#';
+				});
+
+				return res;
+			}
+
+			srb2srb.prototype.detectLang=function() {
+
+				var char;
+
+				var l=0;
+
+				var c=0;
+
+				for(var i=0;i<this.doc.length;i++) {
+
+					char=this.doc.charAt(i);
+
+					if(this.lat.indexOf(char)!=-1) {
+
+						l++;
+
+						if(l>10) return 'lat';
+					}
+					else if(this.cyr.indexOf(char)!=-1) {
+
+						c++;
+
+						if(c>10) return 'cyr';
+					}
+				}
+
+				return false;
+			}
+
+			srb2srb.prototype.convert=function(lang,text) {
+
+				if(lang=='cyr') {
+
+					for(var i=0;i<this.cyr.length;i++) {
+
+						text=text.replace(new RegExp(this.lat[i],'g'),this.cyr[i]);
+					}
+				}
+				else {
+
+					for(var i=0;i<this.lat.length;i++) {
+
+						text=text.replace(new RegExp(this.cyr[i],'g'),this.lat[i]);
+					}
+				}
+
+				return text;
+			}
+
+			srb2srb.prototype.decode=function(res) {
+
+				for(var i=0;i<res.length;i++) {
+
+					this.doc=this.doc.replace(new RegExp(res[i].k),res[i].v);
+				}
+			}
+
+			srb2srb.prototype.decodeSpecialWord=function() {
+
+				this.doc=this.doc.replace(new RegExp('#qq#','g'),'');
+			}
+
+			srb2srb.prototype.convertInputSubmitTag=function(lang,input) {
+
+				var self=this;
+
+				for(var i=0;i<input.length;i++) {
+
+					input[i].v=input[i].v.replace(new RegExp('value="(.*?)"'),function(m,$1) {
+
+						return 'value="'+self.convert(lang,$1)+'"';
+					});
+				}
+			}
+
+			srb2srb.prototype.translate=function() {
+
+				var exemption=this.encodeExemption();
+
+				var scriptTag=this.encodeScriptTag();
+
+				var styleTag=this.encodeStyleTag();
+
+				var inputSubmitTag=this.encodeInputSubmitTag();
+
+				var allTag=this.encodeAllTag();
+
+				this.encodeSpecialWord();
+
+				var htmlEntities=this.encodeHtmlEntities();
+
+				var lang=this.detectLang();
+
+				if(lang) {
+
+					lang=lang=='cyr' ? 'lat':'cyr';
+
+					this.doc=this.convert(lang,this.doc);
+
+					this.convertInputSubmitTag(lang,inputSubmitTag);
+
+					this.decode(exemption);
+
+					this.clearExemptionTag();
+
+					this.decode(scriptTag);
+
+					this.decode(styleTag);
+
+					this.decode(inputSubmitTag);
+
+					this.decode(allTag);
+
+					this.decodeSpecialWord();
+
+					this.decode(htmlEntities);
+				}
+				else this.doc='Upsss....'
+
+				return this.doc;
+			}
+
+			function convert() {
+
+				var output=document.getElementById('output');
+
+				output.value='';
+
+				var input=document.getElementById('input').value;
+
+				var t=new srb2srb(input);
+
+				output.value=t.translate();
+			}
+
+		</script>
+	</head>
+	<body>
+		<textarea id="input" cols="100" rows="20"></textarea>
+		<br />
+		<input type="button" value="Prevedi" onclick="convert()">
+		<br />
+		<br />
+		<textarea id="output" cols="100" rows="20"></textarea>
+	</body>
+</html>
